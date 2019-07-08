@@ -1,1 +1,4 @@
 node_modules
+*.map
+cartridges/plugin_autocomplete/cartridge/static/default/js/
+cartridges/plugin_autocomplete/cartridge/static/default/js/checkout.js

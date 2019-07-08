@@ -1,8 +1,7 @@
 'use strict';
 
-var base = module.superModule;
 var server = require('server');
-server.extend(base);
+server.extend(module.superModule);
 
 /**
  * If there is an api key creates the url to include the google maps api else returns null
@@ -11,6 +10,7 @@ server.extend(base);
  */
 function getGoogleMapsApi(apiKey) {
 	var googleMapsApi;
+	
 	if (apiKey) {
 		var mapsUrl = 'https://www.google.com/maps';
 		googleMapsApi = mapsUrl + '/api/js?libraries=places&key=' + apiKey;
@@ -21,8 +21,8 @@ function getGoogleMapsApi(apiKey) {
 	return googleMapsApi;
 }
 
-// Over riding Begin controller to inject MAP js on checkout page incase
-// autocomplete is enabled
+// Over riding Begin controller to inject MAP JS on checkout page in case
+// auto complete is enabled
 server.append('Begin', function (req, res, next) {
 	var Site = require('dw/system/Site');
 	var isAutoCompleteEnabled = Site.getCurrent().getCustomPreferenceValue('enableAutoComplete');
@@ -32,6 +32,7 @@ server.append('Begin', function (req, res, next) {
 		var mapKey = Site.getCurrent().getCustomPreferenceValue('mapAPI');
 		googleMapAPI = getGoogleMapsApi(mapKey);
 	}
+	
 	res.setViewData({
 		googleMapAPI: googleMapAPI
 	});
